@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { BottomNavigation } from 'react-native-paper';
+import React, {useState} from 'react';
+import { BottomNavigation, Text } from 'react-native-paper';
 
 import Calculadora from './Calculadora';
 import Gastos from './Gastos';
 
 const Home = () => {
   const [index, setIndex] = useState(0);
-
+  
   const [routes] = useState([
-    { key: 'gastos', title: 'Gastos' },
-    { key: 'calculadora', title: 'Calculadora' },
+    { key: 'gastos', title: 'Gastos', icon: 'gas-station' },
+    { key: 'calculadora', title: 'Calculadora', icon: 'calculator' },
   ]);
 
   const renderScene = BottomNavigation.SceneMap({

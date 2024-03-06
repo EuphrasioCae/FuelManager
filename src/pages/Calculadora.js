@@ -12,21 +12,19 @@ const Calculadora = () => {
   const [eta, setEta] = useState('');
   const [res, setRes] = useState('');
 
-  const handleCalcular = () => {
-    if (!gas || gas <= 0 || !eta || eta <= 0) {
-      Alert.alert(
-        'Atenção!',
-        'Obrigatório informar o valor da gasolina e do etanol!'
-      );
-    } else {
-      let pct = Math.round((eta / gas) * 100);
-      if (pct < 70) {
+  const handleCalcular = () =>{
+
+    if(!gas || gas <=0 || !eta || eta <=0){
+      Alert.alert('Atenção!', 'Obrigatório informar o valor da gasolina e do etanol!');
+    }else{
+      let pct = Math.round((eta/gas)*100);
+      if(pct < 70){
         setRes(pct + '% Recomendamos o uso do Etanol');
-      } else {
-        setRes(pct + '% Recomendamos o uso do Gasolina');
+      }else{
+        setRes(pct + '% Recomendamos o uso da Gasolina');
       }
     }
-  };
+  }
 
   return (
     <Container>

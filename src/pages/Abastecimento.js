@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import {RadioButton, Text, TextInput, Button, Appbar } from 'react-native-paper';
+import { RadioButton, Text, TextInput, Button, Appbar } from 'react-native-paper';
 import moment from 'moment';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -9,6 +9,12 @@ import Header from '../components/Header';
 import Container from '../components/Container';
 import Body from '../components/Body';
 import Input from '../components/Input';
+
+import {
+  insertGasto,
+  updateGasto,
+  deleteGasto,
+} from '../services/GastosServicesDB';
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -36,11 +42,31 @@ const Abastecimento = ({ route }) => {
   }, [item]);
 
   const handleSalvar = () => {
-    console.log('Salvar');
+    if (item) {
+      updateGasto({
+        tipo: tipo == 'gas' ? 0 : 1,
+        data: data,
+        preco: preco,
+        valor: valor,
+        odometro: odometro,
+        id: item.id,
+      }).then();
+    } else {
+      insertGasto({
+        tipo: tipo == 'gas' ? 0 : 1,
+        data: data,
+        preco: preco,
+        valor: valor,
+        odometro: odometro,
+      }).then();
+    }
+
+    navigation.goBack();
   };
 
   const handleExcluir = () => {
-    console.log('Exluir');
+    deleteGasto(item.id).then();
+    navigation.goBack();
   };
 
   return (
@@ -89,7 +115,11 @@ const Abastecimento = ({ route }) => {
         )}
 
         <TouchableOpacity onPress={() => setShow(true)}>
-          <Input label="Data" value={data} editable={false} />
+          <Input
+            label="Data"
+            value={data}
+            editable={false}
+          />
         </TouchableOpacity>
 
         <Input
